@@ -1,4 +1,4 @@
-from rest_framework.generics import ListCreateAPIView
+from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import IsAuthenticated
 
 from .config.serializers import TodoSerializer
@@ -7,7 +7,7 @@ from .models import Todo
 # Create your views here.
 
 
-class TodoListAPIView(ListCreateAPIView):
+class TodoViewSet(ModelViewSet):
 
     model = Todo
     serializer_class = TodoSerializer

@@ -15,8 +15,19 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from rest_framework.routers import SimpleRouter
+from rest_framework_jwt.views import obtain_jwt_token, refresh_jwt_token
+
+from user_auth.views import RegistrationAPIView
+from core.views import TodoViewSet
+
+router = SimpleRouter()
+router.register(r'todos', TodoViewSet, basename='Todo')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('core.urls'))
+    path('signin/', obtain_jwt_token),
+    path('signin/refresh/', refresh_jwt_token),
+    path('signup/', RegistrationAPIView.as_view()),
+    path('', include(router.urls)),
 ]
